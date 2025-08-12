@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
     if (!arrowHiddenForever) {
         const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-        if (scrollPercent >= 0.12) {
+        if (scrollPercent >= 0.3) {
         arrow.style.opacity = '0';
         arrowHiddenForever = true; // never show again
         }
