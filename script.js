@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
     const arrow = document.querySelector('.scroll-down');
 
-    let arrowHiddenForever = false; // track if arrow has been hidden
+    let arrowHiddenForever = false;
 
     targets.forEach(t => { t.textContent = ''; t.classList.remove('typing'); });
 
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
     if (!arrowHiddenForever) {
         const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-        if (scrollPercent >= 0.3) {
+        if (scrollPercent >= 0.2) {
         arrow.style.opacity = '0';
         arrowHiddenForever = true; // never show again
         }

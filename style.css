@@ -61,7 +61,7 @@ header {
 .scroll-down {
   position: absolute;
   bottom: 10%;
-  font-size: 2rem;
+  font-size: 4rem;
   color: var(--accent);
   cursor: pointer;
   opacity: 0;
@@ -114,7 +114,7 @@ section { padding: 60px 20px; max-width: 1100px; margin: auto; }
   font-size: 0.9rem;
   backdrop-filter: blur(5px);
   transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
-  display: flex; /* for centering text */
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -135,9 +135,6 @@ section { padding: 60px 20px; max-width: 1100px; margin: auto; }
 .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
 .fade-in.show { opacity: 1; transform: translateY(0); }
 
-/* ========================
-   RESPONSIVE FIXES
-   ======================== */
 @media (max-width: 768px) {
   .typed-line { font-size: 1.8rem; }
   .typed-sub { font-size: 0.95rem; }
@@ -153,7 +150,7 @@ section { padding: 60px 20px; max-width: 1100px; margin: auto; }
   .list span {
     font-size: 0.85rem;
     padding: 6px 12px;
-    width: 100%;   /* full width bubble */
-    min-height: 60px; /* for vertical centering */
+    width: 100%;
+    min-height: 60px;
   }
 }
