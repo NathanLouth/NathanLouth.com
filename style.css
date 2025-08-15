@@ -61,7 +61,7 @@
   .scroll-down {
     position: absolute;
     bottom: 12%;
-    font-size: 2rem;
+    font-size: 2cm;
     color: var(--accent);
     cursor: pointer;
     opacity: 0; /* start hidden */
