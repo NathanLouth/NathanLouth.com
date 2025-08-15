@@ -60,7 +60,7 @@
 
   .scroll-down {
     position: absolute;
-    bottom: 10%;
+    bottom: 12%;
     font-size: 2rem;
     color: var(--accent);
     cursor: pointer;
@@ -75,13 +75,13 @@
 
   @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
-      bottom: 10%;
+      bottom: 12%;
     }
     40% {
-      bottom: 5%;
+      bottom: 7%;
     }
     60% {
-      bottom: 8%;
+      bottom: 10%;
     }
   }
 
