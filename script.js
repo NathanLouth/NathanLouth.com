@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
           setTimeout(() => typeLine(lineIndex), reduceMotion ? 0 : 340);
         } else {
           setTimeout(() => {
-            heroNow.textContent = 'currently exploring: Wine\u2019s Win32 translation layer & Linux traffic shaping';
+            heroNow.textContent = 'currently developing: PowerShell Business Alerting Solution';
             requestAnimationFrame(() => heroNow.classList.add('show'));
             if (!arrowHiddenForever) arrow.classList.add('show');
           }, reduceMotion ? 0 : 450);
