@@ -310,10 +310,8 @@ section { padding: 60px 20px; max-width: 1100px; margin: auto; }
   border-radius: var(--radius-sm);
   padding: 16px 20px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 var(--glass-top-light);
-  transition: transform 0.4s var(--ease), background 0.4s var(--ease), border-color 0.4s var(--ease);
 }
 .badge:hover {
-  transform: translateY(-3px);
   background: var(--glass-hover);
   border-color: var(--glass-border-accent);
 }
@@ -325,6 +323,10 @@ section { padding: 60px 20px; max-width: 1100px; margin: auto; }
 }
 .badge strong { display: block; font-size: 0.92rem; font-weight: 500; color: var(--text); }
 .badge small { font-size: 0.78rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; }
+
+.badge-link {
+  cursor: pointer;
+}
 
 /* ---- Skills ---- */
 .skill-groups {
