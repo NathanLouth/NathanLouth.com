@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       el.classList.remove('typing');
-      if (i === 0) el.innerHTML = el.textContent.replace('Nathan', '<span class="grad">Nathan</span>');
+      if (i === 0) buildName(el);
       if (i < lines.length - 1) return setTimeout(() => typeLine(i + 1), rm ? 0 : 300);
       setTimeout(() => {
         $('#nowText').textContent = 'currently developing: PowerShell Business Alerting Solution';
@@ -33,6 +33,53 @@ document.addEventListener('DOMContentLoaded', () => {
       }, rm ? 0 : 400);
     })();
   }
+
+  /* ---------- Name that reacts to the cursor ---------- */
+  const letters = [];
+  function measure() {
+    letters.forEach(l => {
+      l.el.style.transform = 'none';
+      const r = l.el.getBoundingClientRect();
+      l.cx = r.left + r.width / 2 + scrollX; l.cy = r.top + r.height / 2 + scrollY;
+    });
+  }
+  function buildName(el) {
+    const text = el.textContent, n = text.indexOf('Nathan');
+    el.setAttribute('aria-label', text); el.textContent = '';
+    [...text].forEach((ch, i) => {
+      const s = document.createElement('span');
+      s.className = 'ch'; s.textContent = ch; s.setAttribute('aria-hidden', 'true');
+      el.appendChild(s);
+      letters.push({ el: s, i, name: i >= n, x: 0, y: 0, r: 0, s: 1, g: 0 });
+    });
+    measure(); tickName(0);
+  }
+  addEventListener('resize', () => letters.length && measure());
+  function tickName(t) {
+    if (scrollY < innerHeight) {
+      const mx = mouse.x + scrollX, my = mouse.y + scrollY, R = 190;
+      for (const l of letters) {
+        const dx = mx - l.cx, dy = my - l.cy, d = Math.hypot(dx, dy) || 1;
+        const k = Math.max(0, 1 - d / R), e = k * k * (3 - 2 * k);
+        const w = rm ? 0 : Math.sin(t / 600 + l.i * 0.55);
+        const tx = -(dx / d) * e * 26, ty = -e * 30 + w * 3, tr = -(dx / R) * e * 28 + w * 1.5, ts = 1 + e * 0.35;
+        l.x += (tx - l.x) * 0.14; l.y += (ty - l.y) * 0.14; l.r += (tr - l.r) * 0.14; l.s += (ts - l.s) * 0.14; l.g += (e - l.g) * 0.14;
+        const h = 225 + 110 * (0.5 + 0.5 * Math.sin(t / 900 + l.i * 0.5));
+        const st = l.el.style;
+        st.transform = `translate(${l.x}px,${l.y}px) rotate(${l.r}deg) scale(${l.s})`;
+        st.fontWeight = Math.round(400 + l.g * 400);
+        if (l.name) {
+          st.color = `hsl(${h} 95% 68%)`;
+          st.textShadow = `0 0 ${10 + l.g * 32}px hsla(${h},100%,65%,${0.35 + l.g * 0.65})`;
+        } else {
+          st.color = `hsl(${h} ${l.g * 85}% ${96 - l.g * 26}%)`;
+          st.textShadow = `0 0 ${l.g * 28}px hsla(${h},100%,70%,${l.g})`;
+        }
+      }
+    }
+    if (!rm) requestAnimationFrame(tickName);
+  }
+
   setTimeout(() => typeLine(0), rm ? 0 : 500);
 
   /* ---------- Scramble-decode for section titles ---------- */
@@ -163,6 +210,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!rm) requestAnimationFrame(draw);
   }
   draw();
+
+  /* ---------- Terminal block cursor ---------- */
+  if (fine) {
+    document.documentElement.classList.add('has-cursor');
+    const c = document.createElement('div');
+    c.className = 't-cursor'; c.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(c);
+    let cx = 0, cy = 0, seen = false;
+    addEventListener('pointermove', e => {
+      if (!seen) { cx = e.clientX; cy = e.clientY; seen = true; }
+      c.classList.add('on');
+      c.classList.toggle('link', !!e.target.closest('a, button, .chip'));
+    }, { passive: true });
+    document.documentElement.addEventListener('mouseleave', () => c.classList.remove('on'));
+    addEventListener('pointerdown', () => c.classList.add('down'));
+    addEventListener('pointerup', () => c.classList.remove('down'));
+    (function loop() {
+      cx += (mouse.x - cx) * 0.4; cy += (mouse.y - cy) * 0.4;
+      c.style.transform = `translate(${cx}px,${cy}px)`;
+      requestAnimationFrame(loop);
+    })();
+  }
 
   /* ---------- Footer year ---------- */
   const y = $('#year');
