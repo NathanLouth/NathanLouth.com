@@ -82,11 +82,14 @@ header { min-height: 100vh; display: flex; flex-direction: column; justify-conte
 .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--lilac); box-shadow: 0 0 0 0 rgba(155, 140, 255, 0.6); animation: ping 2s infinite; }
 @keyframes ping { 70% { box-shadow: 0 0 0 10px rgba(155, 140, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(155, 140, 255, 0); } }
 
-.scroll-down { position: absolute; bottom: 7%; width: 26px; height: 42px; border: 1.5px solid var(--line); border-radius: 14px; opacity: 0; transition: opacity 0.8s, border-color 0.4s; }
-.scroll-down.show { opacity: 0.8; }
-.scroll-down:hover { border-color: var(--blue); }
-.scroll-down-line { position: absolute; left: 50%; top: 8px; width: 3px; height: 8px; border-radius: 2px; background: var(--blue); transform: translateX(-50%); animation: dot 1.8s var(--ease) infinite; }
-@keyframes dot { 0% { top: 8px; opacity: 1; } 70% { top: 22px; opacity: 0; } 71% { top: 8px; opacity: 0; } 100% { top: 8px; opacity: 1; } }
+.scroll-down { position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; letter-spacing: 0.08em; color: var(--dim); opacity: 0; transition: opacity 0.8s, color 0.3s; }
+.scroll-down.show { opacity: 0.9; }
+.scroll-down:hover { color: #fff; }
+.sd-track { position: relative; width: 2px; height: 56px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.sd-track::after { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 24px; border-radius: 2px; background: linear-gradient(transparent, var(--blue), var(--violet)); animation: sd 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+@keyframes sd { from { transform: translateY(-24px); } to { transform: translateY(56px); } }
+.sd-chev { width: 11px; height: 11px; margin-top: -6px; border-right: 2px solid var(--violet); border-bottom: 2px solid var(--violet); transform: rotate(45deg); animation: bob 1.8s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(5px) rotate(45deg); } }
 
 /* ---------- Sections ---------- */
 section { padding: 80px 20px; max-width: 1060px; margin: auto; }
